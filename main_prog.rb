@@ -6,7 +6,6 @@ require "#{current_path}/controller_super.rb"
 	while true do
 		if i == 1 then
 			c_a = Controller_Admin.new
-			c_a.choose_way
 			puts "Do you wanna work as admin? 1/0"
 			i = gets.to_i
 		else

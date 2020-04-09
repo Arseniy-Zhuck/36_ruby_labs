@@ -1,9 +1,9 @@
-1
+0
 graphs
 0
-2
+1
 finite automatics
 0
-3
+2
 information theory
 0
