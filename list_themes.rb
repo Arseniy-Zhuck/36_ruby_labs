@@ -30,7 +30,6 @@ class List_Themes
 	end
 
 	def add(name)
-		puts "The name is"
 		@list_thems.push(name)
 		@list_counts.push(0)
 	end

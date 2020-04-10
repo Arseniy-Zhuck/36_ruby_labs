@@ -34,15 +34,14 @@ class Controller_Admin < Controller_super
 	
 	def read_themes_file
 		a,b = @file_tasks_object.read_themes
-		
 		return a,b
 	end
 	
 	def show_themes
-		@file_tasks_object= Files_tasks.new
+		@file_tasks_object= Files_tasks.new # какой объект рабо
 		a,b = self.read_themes_file
 		l_t = List_Themes.new(a,b,self)
-		t_a_t= Term_Admin_Themes.new(self,l_t,user)
+		t_a_t= Term_Admin_Themes.new(self,l_t,@user)
 		t_a_t.show
 	end
 	

@@ -17,6 +17,7 @@ end
 class Term_Admin_rezhim < Term_Admin
 	
 	def choose_rezhim
+		puts "Welcome, #{@user}"
 		a=0
 		while a != 6
 			puts "What do you want?"
