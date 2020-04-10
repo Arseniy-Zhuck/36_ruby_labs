@@ -3,29 +3,40 @@ require "#{current_path}/controller_super.rb"
 
 
 class List_Themes
-	attr_accessor :list_thems, :list_counts 
+	attr_accessor :list_thems, :list_counts, :sender
 	attr_reader :count
-	private :sender
+	
 	
 	def recount
-		@count= counts.inject(0) {|x,n| x+n}
+		@count= @list_counts.inject(0) {|x,n| x+n}
+	end
+	
+	def set_meanings(themes, counts)
+		self.list_thems= themes
+		self.list_counts= counts
+		self.recount
+	end
+	
+	def read_data
+		a,b= @sender.read_themes_file
+		self.set_meanings(a,b)
+		self.recount
 	end
 	
 	def initialize(themes, counts, c_a)
-		self.list_thems= themes
-		self.list_counts= counts
+		self.set_meanings(themes, counts)
 		@sender = c_a
+		
 	end
 
-	def add
+	def add(name)
 		puts "The name is"
-		@list_thems.push(gets.chomp)
+		@list_thems.push(name)
 		@list_counts.push(0)
 	end
 
-	def change(theme_number)
-		puts "The name is"
-		@list_thems[theme_number]=gets.chomp
+	def change(theme_number,theme_name)
+		@list_thems[theme_number]=theme_name
 	end
 
 	def check?(theme_number)
@@ -34,56 +45,6 @@ class List_Themes
 
 	def save_to_file
 		@sender.save_themes(self.list_thems,self.list_counts)
-	end
-	
-	
-	def show
-		choice = 0
-		while choice!= 5 do
-			if list_thems==[] then
-				self.show_list
-			else
-				puts "There is no themes yet"
-			end
-		
-			puts "What do you want?"
-			puts "1. Add"
-			puts "2. Change"
-			puts "3. Delete"
-			puts "4. Show Theme"
-			puts "5. Finish"
-			choice = gets.to_i
-			case choice
-				when 1
-					self.add
-				when 2
-					what = gets.to_i
-					self.change(what)
-				when 3
-					what = gets.to_i
-					if self.check?(what) then
-						self.del
-					end
-				when 4
-					self.save_to_file
-					what = gets.to_i
-					self.open_them(number)
-				when 5
-					self.save_to_file
-				else
-					puts "wrong task"
-			end
-					
-		end
-		
-	end
-	
-	def show_list
-		
-		@list_thems.each_index do
-		|i|
-			puts format("%1i | %25s |%3i", i, @list_thems[i], @list_counts[i])
-		end
 	end
 	
 	def open_them(theme_number)

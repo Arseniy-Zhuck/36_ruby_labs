@@ -71,6 +71,20 @@ class Files_tasks
 					a = (a+1)%3
 				end
 		end
+		
 		return list_thems, list_counts
 	end
+
+	def save_themes(list_thems,list_counts)
+		File.open('themes.txt',"w") do
+			|file|
+			list_thems.each_index do 
+				|id|
+				file.puts(id)
+				file.puts(list_thems[id])
+				file.puts(list_counts[id])
+			end
+		end
+	end
+
 end
