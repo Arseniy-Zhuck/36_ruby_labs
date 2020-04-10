@@ -20,7 +20,7 @@ class List_Themes
 	def read_data
 		a,b= @sender.read_themes_file
 		self.set_meanings(a,b)
-		self.recount
+		
 	end
 	
 	def initialize(themes, counts, c_a)
