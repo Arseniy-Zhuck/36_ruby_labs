@@ -1,8 +1,12 @@
 current_path = File.dirname(__FILE__)
 require "#{current_path}/controller_super.rb"
+require "#{current_path}/term_admin.rb"
 
+class Model
+attr_accessor :visual_obj
+end
 
-class List_Themes
+class List_Themes < Model
 	attr_accessor :list_thems, :list_counts, :sender
 	attr_reader :count
 	
@@ -23,17 +27,27 @@ class List_Themes
 		
 	end
 	
+	def show
+		@visual_obj.show
+	end
+	
 	def initialize(themes, counts, c_a)
 		self.set_meanings(themes, counts)
 		@sender = c_a
-		
+		@visual_obj=Term_Admin_Themes.new(self)
+	end
+
+	def add_visual
 	end
 
 	def add(name)
 		@list_thems.push(name)
 		@list_counts.push(0)
 	end
-
+	
+	def change_visual(theme_number,theme_name)
+	end
+	
 	def change(theme_number,theme_name)
 		@list_thems[theme_number]=theme_name
 	end
@@ -44,6 +58,11 @@ class List_Themes
 
 	def save_to_file
 		@sender.save_themes(self.list_thems,self.list_counts)
+	end
+	
+	def del(theme_number)
+		@list_thems[theme_number]=nil
+		@list_counts[theme_number]=nil
 	end
 	
 	def open_them(theme_number)

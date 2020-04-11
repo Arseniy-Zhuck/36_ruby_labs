@@ -8,14 +8,18 @@ class Files_tasks
 	end
 	
 	def get_kinds
-		kinds,kinds_points = []
+		kinds=[]
+		kinds_points = []
 		if File.exist? 'kinds.txt' then
 			File.foreach('kinds.txt') do 
 				|line|
 				a = line.split(" - ")
-				kinds[a[0].to_i] = a[1]
+				i = a[0].to_i
+				p i
+				kinds[i] = a[1]
+				
 				if a[2] then
-					list_kinds_points[a[0].to_i]=a[2]
+					kinds_points[a[0].to_i]=a[2]
 				end	
 			end
 		end
@@ -24,16 +28,23 @@ class Files_tasks
 	
 	def check_theme?(theme_Id)
 		work,kind,points =read_theme_works(theme_Id)
+		a = (work != [])
+		p a
 		return work != []
 	end
 	
 	def read_theme_works(theme_ID)
-		work,kind,points = []
+		work= []
+		kind= []
+		points = []
+		puts "sdfsdf"
 		if File.exist? 'works.txt' then
-			File.foreach('themes.txt') do 
+			File.foreach('works.txt') do 
 				|line|
+				
 				a = line.split(" - ")
-				if a[2].to_i == theme_id then
+				
+				if a[2].to_i == theme_ID then
 					id = a[0].to_i
 					work[id] = a[1]
 					kind[id] = @list_kinds[a[3].to_i]

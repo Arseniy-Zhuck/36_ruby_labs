@@ -2,19 +2,25 @@ current_path = File.dirname(__FILE__)
 require "#{current_path}/list_themes.rb"
 
 class Term_Admin
-attr_accessor :obj, :user
+attr_accessor :obj
 
 
 
-	def initialize(obj,user)
+	def initialize(obj)
 		self.obj= obj
-		self.user= user
+		
 	end
 
 
 end
 
 class Term_Admin_rezhim < Term_Admin
+attr_accessor :user	
+	
+	def initialize(obj,user)
+		super(obj)
+		self.user= user
+	end
 	
 	def choose_rezhim
 		puts "Welcome, #{@user}"
@@ -54,66 +60,67 @@ end
 
 
 class Term_Admin_Themes < Term_Admin
-	attr_accessor :obj_data
 	
-	def initialize(obj,obj_data,user)
-		super(obj,user)
-		self.obj_data= obj_data
-		
-	end
 	
 	def show_list
-		
-		@obj_data.list_thems.each_index do
-		|i|
-			puts format("%1i | %25s |%3i", i, @obj_data.list_thems[i], @obj_data.list_counts[i])
-		end
+		list=@obj.list_thems
+		if list!=[] then
+			@obj.list_thems.each_index do
+				|i|
+				if @obj.list_thems[i] != nil
+					puts format("%1i | %25s |%3i", i, @obj.list_thems[i], @obj.list_counts[i])
+				end
+			end
+		else
+			puts "There is no themes yet"
+		end	
 	end
 	
 	def show
 		choice = 0
-		
-		while choice!= 5 do
-			list=@obj_data.list_thems
-			if list!=[] then
-				self.show_list
-			else
-				puts "There is no themes yet"
-			end
-		
+		self.show_list
+		while choice!=6 do
 			puts "What do you want?"
-			puts "1. Add"
-			puts "2. Change"
-			puts "3. Delete"
-			puts "4. Show Theme"
-			puts "5. Finish"
+			puts "1. Save to file"
+			puts "2. Add"
+			puts "3. Change"
+			puts "4. Delete"
+			puts "5. Show Theme"
+			puts "6. Finish"
 			choice = gets.to_i
 			case choice
 				when 1
-					puts "New name"
-					new_name=gets.chomp
-					@obj_data.add(new_name)
-					
+					@obj.save_to_file
 				when 2
-					puts "What?"
-					what = gets.to_i
 					puts "New name"
 					new_name=gets.chomp
-					@obj_data.change(what,new_name)
+					@obj.add_visual(new_name)
+					self.show_list
 				when 3
 					puts "What?"
 					what = gets.to_i
-					if @obj_data.check?(what) then
-						@obj_data.del(what)
-					end
+					puts "New name"
+					new_name=gets.chomp
+					@obj.change_visual(what,new_name)
+					self.show_list
 				when 4
-					@obj_data.save_to_file
+					puts "What?"
+					what = gets.to_i
+					if @obj.check? 
+						@obj.del(what)
+						self.show_list
+					else
+						puts "There are works for this theme, you cannot delete it"
+					end
+					
+				when 5
+					@obj.save_to_file
 					puts "What?"
 					what = gets.to_i
 					@obj.open_them(number)
-					@obj_data.read_data
-				when 5
-					@obj_data.save_to_file
+					self.show_list
+				when 6
+					@obj.save_to_file
 				else
 					puts "wrong task"
 			end

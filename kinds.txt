@@ -1,0 +1,4 @@
+0 - Individual
+1 - Practice - 2
+2 - Theory - 4
+3 - Control - 3
