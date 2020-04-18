@@ -4,13 +4,9 @@ require "#{current_path}/list_themes.rb"
 class Term_Admin
 attr_accessor :obj
 
-
-
 	def initialize(obj)
 		self.obj= obj
-		
 	end
-
 
 end
 
@@ -57,8 +53,6 @@ attr_accessor :user
 
 end 
 
-
-
 class Term_Admin_Themes < Term_Admin
 	
 	
@@ -92,9 +86,7 @@ class Term_Admin_Themes < Term_Admin
 				when 1
 					@obj.save_to_file
 				when 2
-					puts "New name"
-					new_name=gets.chomp
-					@obj.add_visual(new_name)
+					@obj.add_visual
 					self.show_list
 				when 3
 					puts "What?"
@@ -130,5 +122,19 @@ class Term_Admin_Themes < Term_Admin
 	end
 
 
+
+end
+
+class Term_Admin_Theme < Term_Admin
+	def show
+		if @obj.theme_id=nil then
+			puts "New name"
+			@obj.set_meanings= gets.chomp
+		else
+			puts "Theme_ID= #{@obj.theme_id}, theme_name= #{@obj.theme_name}"
+			puts "New name will be:"
+			@obj.theme_name=
+		end
+	end
 
 end

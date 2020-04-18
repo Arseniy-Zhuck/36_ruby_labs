@@ -2,12 +2,31 @@ current_path = File.dirname(__FILE__)
 require "#{current_path}/controller_super.rb"
 require "#{current_path}/term_admin.rb"
 
-class Model
-attr_accessor :visual_obj
+module List_of_data
+	attr_accessor :list_data,:list_counts
+	
+	def add(name)
+	end
+	
+	
 end
 
+class Model
+attr_accessor :visual_obj,:sender
+	def initialize(sender)
+		self.sender= sender
+	end
+
+end
+
+
+class List < Model
+	
+end
+
+
 class List_Themes < Model
-	attr_accessor :list_thems, :list_counts, :sender
+	attr_accessor :list_thems, :list_counts
 	attr_reader :count
 	
 	
@@ -33,11 +52,12 @@ class List_Themes < Model
 	
 	def initialize(themes, counts, c_a)
 		self.set_meanings(themes, counts)
-		@sender = c_a
+		super(c_a)
 		@visual_obj=Term_Admin_Themes.new(self)
 	end
 
 	def add_visual
+		@sender.add_theme
 	end
 
 	def add(name)
@@ -72,10 +92,16 @@ class List_Themes < Model
 	
 end
 
-class Theme
-	attr_accessor :theme_ID, :theme_name
+class Theme < model
+	attr_accessor :theme_ID, :theme_name, :theme_count, :list_kinds
 	
-	def initialize(iD, theme_name)
+	def show_description
+		self.visual_obj= Term_Admin_Theme(self)
+		@visual_obj.show
+	end
+	
+	def initialize(c_a, iD=nil, theme_name=nil)
+		super(c_a)
 		self.theme_ID= iD
 		self.theme_name= theme_name
 		
