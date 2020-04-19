@@ -1,12 +1,17 @@
 
 require 'mysql2'
+include Mysql2
 puts "control 1"
-client = Mysql2::Client.new(:host => 'localhost', :username => 'root')
+client = Client.new(:username => 'ars', :password => '111', :host => 'localhost')
 puts "control 2"
-client.query("USE prob_v")
+client.query("CREATE DATABASE DM")
+puts "control 2.5"
+client.query("USE DM")
 puts "control 3"
-client.query("SELECT * from Theme").each do 
-|t|
-puts "Name: #{t["Name"] }, Count: #{t["Counts"] }"
-end
+client.query("create table Theme (
+        Theme_ID integer not null auto_increment,
+        Theme_Name varchar(50),
+        Theme_Count integer,
+        primary key (Theme_ID)
+    )")
 puts "control 4"
