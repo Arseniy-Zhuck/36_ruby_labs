@@ -5,7 +5,7 @@ require "#{current_path}/controller_super.rb"
 	i = gets.to_i
 	while true do
 		if i == 1 then
-			c_a = Controller_Admin.new
+			c_a = Controller_admin.new
 			puts "Do you wdfanna work as admin? 1/0"
 			i = gets.to_i
 		else

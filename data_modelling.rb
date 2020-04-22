@@ -15,11 +15,15 @@ end
 class List < Data_modelling
 	attr_accessor :list_names, :list_counts
 	initialize(prev, nex, list_names, list_counts)
-		super(prev,next)
+		super(prev,nex)
 		self.list_names= list_names
 		self.list_counts= list_counts
 	end
+end
 
+class List_Themes < List
+
+	
 
 end
 
