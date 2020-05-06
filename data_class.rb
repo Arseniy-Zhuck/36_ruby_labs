@@ -14,15 +14,18 @@ class Data_class
 
 	def read_themes
 		puts "Data_class.read_themes: start reading"
-		list_thems, list_counts = [],[]
+		list_thems, list_counts, list_id = [],[],[]
 		puts "Data_class.read_themes: data_structure is initialized"
 		r = client.query("SELECT * From Themes")
 		puts "Data_class.read_themes: reading_complete"
+		i=0
 		r.each do |theme|
 			puts "Parsing_data"
-			list_thems[theme["Theme_ID"]]=theme["Theme_Name"]
-			list_counts[theme["Theme_ID"]]=theme["Theme_Count"]
+			list_id[i]= theme["Theme_ID"] 
+			list_thems[i]=theme["Theme_Name"]
+			list_counts[i]=theme["Theme_Count"]
+			i+=1
 		end
-		return list_thems, list_counts
+		return list_id, list_thems, list_counts
 	end
 end

@@ -36,9 +36,9 @@ class Controller_admin < Controller_super
 
 	def show_themes
 		puts "Controller_admin.show_themes: start"
-		a,b = self.data.read_themes
+		a,b,c = self.data.read_themes
 		puts "Controller_admin.show_themes: themes are read"
-		
+		lt= List_Themes.new(self.application,a,b,c)
 	end
 
 	def to_s

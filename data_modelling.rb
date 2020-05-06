@@ -3,29 +3,29 @@ require "#{current_path}/controller_super.rb"
 require "#{current_path}/fox_win.rb"
 
 class Data_modelling
-	attr_accessor :morda, :app
-	
-	initialize(app)
+	attr_accessor :morda
+	attr_accessor :app
+	def initialize(app)
 		self.app= app
 	end
 
 	def show(morda)
-		self.morda= morda.new(@app,self)
-		self.morda.create
+		puts "data_modelling.rb/Data_modelling.show: start"
+		self.morda= morda
+		puts "data_modelling.rb/Data_modelling.show: morda is ready"
+		@morda.create
 	end
-
-	def to_s
-		"#{self.class}"
-	end
-
 end	
 
 class List < Data_modelling
 	attr_accessor :list_names, :list_counts
 
 	def set_meanings(list_names, list_counts)
+		puts "data_modelling.rb/List.set_meanings: start"
 		self.list_names= list_names
+		puts "data_modelling.rb/List.set_meanings: names are ready"
 		self.list_counts= list_counts
+		puts "data_modelling.rb/List.set_meanings: counts are ready"
 	end
 
 end
@@ -40,6 +40,7 @@ class List_cut < List
 	end
 
 	def show(title)
+		
 		super(Table_Cut_Window.new(app,self,title))
 	end
 end
@@ -47,18 +48,30 @@ end
 class List_start < List
 	attr_accessor :list_id
 	
-	def initialize(app, list_names, list_counts, list_id)
+	def initialize(app, list_id, list_names, list_counts)
+		puts "data_modelling.rb/List_start.initialize:  start"
 		super(app)
-		self.set_meanings(list_names, list_counts, list_id))
+		puts "data_modelling.rb/List_start.initialize: get main FoxApp"
+		self.set_meanings(list_id, list_names, list_counts)
+		puts "data_modelling.rb/List_start.initialize: data is copied"
+		self.show
 	end
 
-	def set_meanings(list_names, list_counts, list_id))
+	def set_meanings(list_id, list_names, list_counts)
+		puts "data_modelling.rb/List_start.set_meanings: start"
 		super(list_names, list_counts)
+		puts "data_modelling.rb/List_start.set_meanings: super(method) is done"
 		self.list_id= list_id
+		puts puts "data_modelling.rb/List_start.set_meanings: id are ready"
 	end
 
-	def show(title)
-		super(Table_Start_Window.new(app,self,title))
+	def show
+		puts "data_modelling.rb/List_start.show: start"
+		super(Table_Start_Window.new(app, self, self.to_s))
+	end
+
+	def to_s
+		return "#{self.class}"
 	end
 
 end
@@ -74,10 +87,7 @@ end
 
 class List_Themes < List_start
 
-	def show
-		super(self.to_s)
-	end
-
+	
 end
 
 

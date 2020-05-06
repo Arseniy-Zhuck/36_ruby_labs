@@ -1,5 +1,9 @@
 current_path = File.dirname(__FILE__)
 require "#{current_path}/data_modelling.rb"
+require 'fox16'
+require 'date'
+
+include Fox
 
 class Prog_window < FXMainWindow
 	attr_accessor :model, :app, :menu
@@ -23,7 +27,7 @@ end
 
 class Table_Window < Prog_window
 
-	def initialize(app,model,title)
+	 def initialize(app,model,title)
 		super
 		FXHorizontalSeparator.new(self, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|SEPARATOR_GROOVE)
   
@@ -40,7 +44,8 @@ class Table_Window < Prog_window
 	    @table.visibleRows = 20
     	@table.visibleColumns = 8
 
-	    @table.setTableSize(50, 14)
+      x= self.model.list_names.size
+	    @table.setTableSize(x, 3)
 
 	    @table.setBackColor(FXRGB(255, 255, 255))
     	@table.setCellColor(0, 0, FXRGB(255, 255, 255))
@@ -49,18 +54,19 @@ class Table_Window < Prog_window
     	@table.setCellColor(1, 1, FXRGB(240, 240, 255))
   
     	# Initialize the scrollable part of the table
-    	(0..49).each do |r|
-      		(0..13).each do |c|
-        		@table.setItemText(r, c, "r:#{r} c:#{c}")
-      		end
-    	end
+    	(0..(x-1)).each do |r|
+      		@table.setItemText(r, 0, "#{self.model.list_names[r]}")
+          @table.setItemText(r,1,"#{self.model.list_counts[r]}")
+      end
+    	
 
     	# Initialize column headers
-    		(0...12).each  { |c| @table.setColumnText(c, Date::MONTHNAMES[c+1]) }
+      @table.setColumnText(0,"Name")
+      @table.setColumnText(1, "Count")
     
     	# Initialize row headers
-    		(0...50).each { |r| @table.setRowText(r, "Row#{r}") }
-    
+    		(0..(x-1)).each { |r| @table.setRowText(r, "Row#{r}") }
+      @table.fitColumnsToContents(0)
 	end
 
 end
@@ -76,3 +82,17 @@ end
 class Table_Full_Window < Table_Window
 
 end
+
+#if __FILE__ == $0
+  # Make application
+ # application = FXApp.new("TableApp", "FoxTest")
+  #lt= List_Themes.new(application,[12,13],["name1","name2"],[0,0])
+  # Make window
+  #Table_Start_Window.new(application,lt,"title")
+  
+  # Create app
+  #application.create
+  
+  # Run
+  #application.run
+#end
