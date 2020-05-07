@@ -35,12 +35,14 @@ class ChoozeRezhimWindow < FXMainWindow
  end
 
  def onKinds(sender, sel, ptr)
-    puts "Sorry, this method is not ready"
+    puts "ChoozeRezhimWindow.onKinds: button Kinds is pushed"
+    
+    self.controller.show_kinds
  end
 
  def onThemes(sender, sel, ptr)
     puts "ChoozeRezhimWindow.onKinds: button Themes is pushed"
-    puts self.controller
+    
     self.controller.show_themes
  end
 

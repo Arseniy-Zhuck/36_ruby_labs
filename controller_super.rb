@@ -41,6 +41,13 @@ class Controller_admin < Controller_super
 		lt= List_Themes.new(self.application,a,b,c)
 	end
 
+	def show_kinds
+		puts "Controller_admin.show_kinds: start"
+		a,b,c = self.data.read_kinds
+		puts "Controller_admin.show_kinds: kinds are read"
+		lt= List_Kinds.new(self.application,a,b,c)
+	end
+
 	def to_s
 		self.class.to_s
 	end

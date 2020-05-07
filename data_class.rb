@@ -28,4 +28,23 @@ class Data_class
 		end
 		return list_id, list_thems, list_counts
 	end
+
+	def read_kinds
+		puts "Data_class.read_kinds: start reading"
+		list_kinds, list_counts, list_id = [],[],[]
+		puts "Data_class.read_kinds: data_structure is initialized"
+		r = client.query("SELECT * From Kinds")
+		puts "Data_class.read_kinds: reading_complete"
+		i=0
+		r.each do |kind|
+			puts "Parsing_data"
+			list_id[i]= kind["Kind_ID"] 
+			list_kinds[i]=kind["Kind_Name"]
+			list_counts[i]=kind["Kind_Count"]
+			i+=1
+		end
+		return list_id, list_kinds, list_counts
+	end
+
+
 end

@@ -67,6 +67,7 @@ class List_start < List
 
 	def show
 		puts "data_modelling.rb/List_start.show: start"
+		puts self
 		super(Table_Start_Window.new(app, self, self.to_s))
 	end
 
@@ -86,6 +87,11 @@ end
 
 
 class List_Themes < List_start
+
+	
+end
+
+class List_Kinds < List_start
 
 	
 end

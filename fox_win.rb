@@ -65,7 +65,7 @@ class Table_Window < Prog_window
       @table.setColumnText(1, "Count")
     
     	# Initialize row headers
-    		(0..(x-1)).each { |r| @table.setRowText(r, "Row#{r}") }
+    		(0..(x-1)).each { |r| @table.setRowText(r, "Row#{(r+1)}") }
       @table.fitColumnsToContents(0)
 	end
 
