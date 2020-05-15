@@ -32,17 +32,24 @@ class ChoozeRezhimWindow < FXMainWindow
     @button_five.connect(SEL_COMMAND, method(:onBuilding))
     @button_six.connect(SEL_COMMAND, method(:onClose))
     puts "ChoozeRezhimWindow.initialize: buttons are connected to methods"
+    self.connect(SEL_CLOSE, method(:on_close))
+ end
+
+
+ def on_close(sender, sel, ptr)
+    puts "we want close everything"
+    self.controller.on_admin_close
  end
 
  def onKinds(sender, sel, ptr)
     puts "ChoozeRezhimWindow.onKinds: button Kinds is pushed"
-    
+    self.hide
     self.controller.show_kinds
  end
 
  def onThemes(sender, sel, ptr)
     puts "ChoozeRezhimWindow.onKinds: button Themes is pushed"
-    
+    self.hide
     self.controller.show_themes
  end
 
