@@ -126,8 +126,8 @@ class Note_window < Prog_window
     contents = FXVerticalFrame.new(self, LAYOUT_SIDE_TOP|FRAME_NONE|LAYOUT_FILL_X|LAYOUT_FILL_Y)
     
     frame = FXVerticalFrame.new(contents, FRAME_SUNKEN|FRAME_THICK|LAYOUT_FILL_X|LAYOUT_FILL_Y, :padding => 0)
-    @buttonOK=FXButton.new(frame, "Ok")
-    @buttonCancel=FXButton.new(frame, "Cancel")
+    @buttonOK=FXButton.new(frame, "Ok", :x => 555, :y => 5)
+    @buttonCancel=FXButton.new(frame, "Cancel", :x => 5, :y => 5)
     puts "Now it's time to move it move it"
     #@buttonOK.move(5,555)
     #@buttonCancel.move(5,5)
